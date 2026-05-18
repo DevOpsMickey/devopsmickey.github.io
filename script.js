@@ -27,13 +27,19 @@ function switchLanguage(lang) {
         }
     });
     
-    // Update language toggle button text
+    // Update language toggle button text and flag
     const langText = document.getElementById('langText');
     const langTextMobile = document.getElementById('langTextMobile');
+    const langIcon = document.getElementById('langIcon');
     const newLangText = lang === 'en' ? 'ES' : 'EN';
+    const newLangFlag = lang === 'en' ? 'https://flagcdn.com/w20/us.png' : 'https://flagcdn.com/w20/mx.png';
     
     if (langText) langText.textContent = newLangText;
     if (langTextMobile) langTextMobile.textContent = newLangText;
+    if (langIcon) {
+        langIcon.src = newLangFlag;
+        langIcon.alt = lang === 'en' ? 'US' : 'MX';
+    }
     
     // Save preference to localStorage
     localStorage.setItem('preferredLang', lang);
@@ -486,5 +492,13 @@ const timelineObserver = new IntersectionObserver((entries) => {
 timelineItems.forEach(item => {
     timelineObserver.observe(item);
 });
+
+// Initialize language toggle flag on page load
+const langIcon = document.getElementById('langIcon');
+if (langIcon) {
+    const initialFlag = currentLang === 'en' ? 'https://flagcdn.com/w20/us.png' : 'https://flagcdn.com/w20/mx.png';
+    langIcon.src = initialFlag;
+    langIcon.alt = currentLang === 'en' ? 'US' : 'MX';
+}
 
 console.log('Portfolio website loaded successfully!');

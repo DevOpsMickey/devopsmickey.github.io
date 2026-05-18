@@ -87,6 +87,14 @@ body {
     font-family: var(--font-mono);
 }
 
+/* Language Toggle Styles */
+#langIcon {
+    font-size: 1.2rem;
+    line-height: 1;
+    display: inline-block;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+}
+
 /* Glassmorphism Card Effect */
 .glass-card {
     background: rgba(255, 255, 255, 0.03);
