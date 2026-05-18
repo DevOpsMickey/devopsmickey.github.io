@@ -453,67 +453,38 @@ sections.forEach(section => {
     sectionObserver.observe(section);
 });
 
-// Particle effect on mouse move (more visible)
-let particles = [];
-document.addEventListener('mousemove', (e) => {
-    if (Math.random() > 0.85) {
-        createParticle(e.clientX, e.clientY);
+// Particle effect on mouse move (subtle - removed for performance)
+// Keeping this minimal or removing entirely for better performance
+
+// Smooth scroll with parallax for sections (optimized)
+let ticking = false;
+window.addEventListener('scroll', () => {
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            const scrolled = window.pageYOffset;
+            const heroSection = document.getElementById('hero');
+            if (heroSection) {
+                const rate = scrolled * -0.15;
+                heroSection.style.transform = `translateY(${rate}px)`;
+            }
+            ticking = false;
+        });
+        ticking = true;
     }
 });
 
-function createParticle(x, y) {
-    const particle = document.createElement('div');
-    particle.style.cssText = `
-        position: fixed;
-        width: 8px;
-        height: 8px;
-        background: rgba(147, 51, 234, 0.8);
-        border-radius: 50%;
-        pointer-events: none;
-        left: ${x}px;
-        top: ${y}px;
-        z-index: 9999;
-        box-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
-    `;
-    document.body.appendChild(particle);
-    
-    const angle = Math.random() * Math.PI * 2;
-    const velocity = 3 + Math.random() * 2;
-    const vx = Math.cos(angle) * velocity;
-    const vy = Math.sin(angle) * velocity;
-    
-    let opacity = 1;
-    let posX = x;
-    let posY = y;
-    
-    const animateParticle = () => {
-        posX += vx;
-        posY += vy;
-        opacity -= 0.015;
-        
-        particle.style.left = posX + 'px';
-        particle.style.top = posY + 'px';
-        particle.style.opacity = opacity;
-        
-        if (opacity > 0) {
-            requestAnimationFrame(animateParticle);
-        } else {
-            particle.remove();
+// Timeline animation observer
+const timelineItems = document.querySelectorAll('.timeline-item');
+const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
         }
-    };
-    
-    requestAnimationFrame(animateParticle);
-}
-
-// Smooth scroll with parallax for sections
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    
-    document.querySelectorAll('section').forEach(section => {
-        const rate = scrolled * -0.3;
-        section.style.transform = `translateY(${rate}px)`;
     });
+}, { threshold: 0.3 });
+
+timelineItems.forEach(item => {
+    timelineObserver.observe(item);
 });
 
 console.log('Portfolio website loaded successfully!');
-console.log('Animations initialized: ' + Object.keys(animations).length);

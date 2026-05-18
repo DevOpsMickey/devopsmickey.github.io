@@ -2,13 +2,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-    --bg-primary: #0b0b0f;
-    --bg-secondary: #0d0d12;
+    --bg-primary: #05060A;
+    --bg-secondary: #05060A;
     --text-primary: #ffffff;
     --text-secondary: #9ca3af;
-    --accent-purple: #a855f7;
     --accent-blue: #3b82f6;
+    --accent-cyan: #06b6d4;
     --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    
+    /* Typography System */
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    --text-7xl: 4.5rem;
+    --text-8xl: 6rem;
+    
+    /* Line Heights */
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose: 2;
+    
+    /* Letter Spacing */
+    --tracking-tighter: -0.05em;
+    --tracking-tight: -0.025em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
+    
+    /* Font Weights */
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+    --font-black: 900;
 }
 
 * {
@@ -22,12 +66,25 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Classes */
+.font-display {
+    font-family: var(--font-display);
+}
+
+.font-body {
+    font-family: var(--font-body);
+}
+
+.font-mono {
+    font-family: var(--font-mono);
 }
 
 /* Glassmorphism Card Effect */
@@ -86,7 +143,7 @@ body {
 
 /* Selection Styling */
 ::selection {
-    background: rgba(168, 85, 247, 0.3);
+    background: rgba(59, 130, 246, 0.3);
     color: white;
 }
 
@@ -115,30 +172,62 @@ button:hover::before, a:hover::before {
 }
 
 /* Gradient Text Animation */
-@keyframes gradient-shift {
-    0% { background-position: 0% 50%; }
+@keyframes gradient-x {
+    0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
 }
 
-.gradient-text {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+.animate-gradient-x {
     background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradient-shift 5s ease infinite;
+    animation: gradient-x 3s ease infinite;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.8s ease forwards;
+}
+
+@keyframes fade-in-up {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fade-in-up 0.8s ease forwards;
+}
+
+@keyframes pulse-glow {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    50% { 
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    }
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
 }
 
 /* Neon Glow Effect */
-.neon-glow {
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3),
-                0 0 40px rgba(168, 85, 247, 0.1);
-}
-
 .neon-glow-blue {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.3),
                 0 0 40px rgba(59, 130, 246, 0.1);
+}
+
+.neon-glow-cyan {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3),
+                0 0 40px rgba(6, 182, 212, 0.1);
 }
 
 /* Floating Animation */
@@ -185,8 +274,24 @@ nav a.active::after {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
     border-radius: 2px;
+}
+
+/* Timeline Animation */
+.timeline-item {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item:nth-child(even) {
+    transform: translateX(20px);
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 /* Project Card Image Hover */
@@ -210,7 +315,7 @@ nav a.active::after {
     top: 0;
     bottom: 0;
     width: 4px;
-    background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
+    background: linear-gradient(180deg, var(--accent-blue), var(--accent-cyan));
     border-radius: 2px;
 }
 
@@ -224,7 +329,7 @@ a[href*="linkedin"]::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(59, 130, 246, 0.2));
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.2));
     opacity: 0;
     transition: opacity 0.3s ease;
 }
@@ -235,20 +340,37 @@ a[href*="linkedin"]:hover::after {
 
 /* Responsive Typography */
 @media (max-width: 768px) {
-    .text-5xl {
-        font-size: 2.5rem;
+    :root {
+        --text-xs: 0.75rem;
+        --text-sm: 0.875rem;
+        --text-base: 1rem;
+        --text-lg: 1.125rem;
+        --text-xl: 1.25rem;
+        --text-2xl: 1.5rem;
+        --text-3xl: 1.75rem;
+        --text-4xl: 2rem;
+        --text-5xl: 2.5rem;
+        --text-6xl: 3rem;
+        --text-7xl: 3.5rem;
+        --text-8xl: 4rem;
     }
-    
-    .text-6xl {
-        font-size: 3rem;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    :root {
+        --text-5xl: 2.75rem;
+        --text-6xl: 3.5rem;
+        --text-7xl: 4rem;
+        --text-8xl: 5rem;
     }
-    
-    .text-7xl {
-        font-size: 3.5rem;
-    }
-    
-    .text-8xl {
-        font-size: 4rem;
+}
+
+@media (min-width: 1025px) {
+    :root {
+        --text-5xl: 3rem;
+        --text-6xl: 3.75rem;
+        --text-7xl: 4.5rem;
+        --text-8xl: 6rem;
     }
 }
 
@@ -296,7 +418,7 @@ a[class*="hover:text-white"]:hover svg {
 /* Focus States for Accessibility */
 a:focus-visible,
 button:focus-visible {
-    outline: 2px solid var(--accent-purple);
+    outline: 2px solid var(--accent-blue);
     outline-offset: 2px;
 }
 
