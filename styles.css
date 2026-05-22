@@ -367,7 +367,24 @@ a[href*="linkedin"]:hover::after {
 }
 
 /* Responsive Typography */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+    :root {
+        --text-xs: 0.7rem;
+        --text-sm: 0.8rem;
+        --text-base: 0.95rem;
+        --text-lg: 1.1rem;
+        --text-xl: 1.2rem;
+        --text-2xl: 1.4rem;
+        --text-3xl: 1.6rem;
+        --text-4xl: 1.8rem;
+        --text-5xl: 2.2rem;
+        --text-6xl: 2.5rem;
+        --text-7xl: 3rem;
+        --text-8xl: 3.5rem;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
     :root {
         --text-xs: 0.75rem;
         --text-sm: 0.875rem;
@@ -460,5 +477,49 @@ button:focus-visible {
     .glass-card {
         background: white;
         border: 1px solid #ccc;
+    }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+    /* Adjust padding for mobile */
+    section {
+        padding: 4rem 1rem !important;
+    }
+    
+    /* Improve touch targets */
+    button, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Better spacing for mobile cards */
+    .skill-card {
+        padding: 1rem !important;
+    }
+    
+    /* Optimize mobile menu */
+    #mobileMenu {
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 49;
+        overflow-y: auto;
+    }
+}
+
+/* Tablet-specific improvements */
+@media (min-width: 769px) and (max-width: 1024px) {
+    section {
+        padding: 6rem 2rem !important;
+    }
+}
+
+/* Desktop-specific improvements */
+@media (min-width: 1025px) {
+    section {
+        padding: 8rem 1.5rem !important;
     }
 }
