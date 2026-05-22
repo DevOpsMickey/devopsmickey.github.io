@@ -31,6 +31,7 @@ function switchLanguage(lang) {
     const langText = document.getElementById('langText');
     const langTextMobile = document.getElementById('langTextMobile');
     const langIcon = document.getElementById('langIcon');
+    const langIconMobile = document.getElementById('langIconMobile');
     const newLangText = lang === 'en' ? 'ES' : 'EN';
     const newLangFlag = lang === 'en' ? 'https://flagcdn.com/w20/us.png' : 'https://flagcdn.com/w20/mx.png';
     
@@ -39,6 +40,10 @@ function switchLanguage(lang) {
     if (langIcon) {
         langIcon.src = newLangFlag;
         langIcon.alt = lang === 'en' ? 'US' : 'MX';
+    }
+    if (langIconMobile) {
+        langIconMobile.src = newLangFlag;
+        langIconMobile.alt = lang === 'en' ? 'US' : 'MX';
     }
     
     // Save preference to localStorage
@@ -500,10 +505,16 @@ timelineItems.forEach(item => {
 
 // Initialize language toggle flag on page load
 const langIcon = document.getElementById('langIcon');
+const langIconMobile = document.getElementById('langIconMobile');
 if (langIcon) {
     const initialFlag = currentLang === 'en' ? 'https://flagcdn.com/w20/us.png' : 'https://flagcdn.com/w20/mx.png';
     langIcon.src = initialFlag;
     langIcon.alt = currentLang === 'en' ? 'US' : 'MX';
+}
+if (langIconMobile) {
+    const initialFlag = currentLang === 'en' ? 'https://flagcdn.com/w20/us.png' : 'https://flagcdn.com/w20/mx.png';
+    langIconMobile.src = initialFlag;
+    langIconMobile.alt = currentLang === 'en' ? 'US' : 'MX';
 }
 
 console.log('Portfolio website loaded successfully!');
